@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">DesafioPicPay</string>
+    <string name="title_contacts">Contatos</string>
+    <string name="profile_id">\@renderson</string>
+    <string name="profile_name">Renderson Cerqueira</string>
+    <string name="txt_sign_card">Cadastre um cartão \n de crédito</string>
+    <string name="txt_instruction">Para fazer pagamentos para outras \n pessoas você precisa cadastrar um \n cartão de crédito pessoal.</string>
+    <string name="txt_button_sign_card">Cadastrar cartão</string>
+    <string name="txt_number_card">Número do cartão</string>
+    <string name="txt_card_holder_name">Nome do titular</string>
+    <string name="txt_due_date">Vencimento</string>
+    <string name="txt_cvv">CVV</string>
+    <string name="txt_currency">R$</string>
+    <string name="txt_value">0,00</string>
+    <string name="txt_flag_card">%1$s %2$s •</string>
+    <string name="txt_edit">EDITAR</string>
+    <string name="txt_payment">Pagar</string>
 </resources>
