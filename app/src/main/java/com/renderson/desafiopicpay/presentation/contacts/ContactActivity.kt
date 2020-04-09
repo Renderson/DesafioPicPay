@@ -1,6 +1,7 @@
 package com.renderson.desafiopicpay.presentation.contacts
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -18,6 +19,7 @@ class ContactActivity : AppCompatActivity() {
         setContentView(R.layout.activity_contact_main)
 
         textCollapsing.text = "Contacts"
+        progressBar.visibility = View.VISIBLE
 
         val viewModel: ContactsViewModel = ViewModelProviders.of(this).get(
             ContactsViewModel::class.java
@@ -37,8 +39,8 @@ class ContactActivity : AppCompatActivity() {
                             "Contato selecionado: ${user.id}",
                             Toast.LENGTH_SHORT
                         ).show()
-
                     }
+                    progressBar.visibility = View.GONE
                 }
             }
         })
