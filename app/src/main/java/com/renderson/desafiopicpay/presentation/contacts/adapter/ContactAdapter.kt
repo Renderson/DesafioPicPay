@@ -1,50 +1,54 @@
 package com.renderson.desafiopicpay.presentation.contacts.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.renderson.desafiopicpay.R
-import com.renderson.desafiopicpay.data.model.Contacts
+import com.renderson.desafiopicpay.data.model.User
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.items_contact_list.view.*
 
-class ContactAdapter(private val contacts: List<Contacts>,
-                     val onItemClickListener: ((contact: Contacts) -> Unit)
+class ContactAdapter(
+    private val users: List<User>,
+    private val onItemClickListener: ((user: User) -> Unit)
 ) : RecyclerView.Adapter<ContactAdapter.ContactsViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ContactsViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.items_contact_list, parent, false)
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.items_contact_list, parent, false)
         return ContactsViewHolder(itemView, onItemClickListener)
     }
 
-    override fun getItemCount() = contacts.count()
+    override fun getItemCount() = users.count()
 
     override fun onBindViewHolder(holder: ContactsViewHolder, position: Int) {
-        holder.bindView(contacts[position])
+        holder.bindView(users[position])
     }
 
     class ContactsViewHolder(
         itemView: View,
-        private val onItemClickListener: ((contact: Contacts) -> Unit)
+        private val onItemClickListener: ((user: User) -> Unit)
     ) : RecyclerView.ViewHolder(itemView) {
 
         private val image = itemView.contact_user_image
         private val name = itemView.contact_user_name
-        private val userName = itemView.contact_user_name
+        private val username = itemView.contact_user_id
 
-        fun bindView(contacts: Contacts){
-            userName.text = contacts.username
-            name.text = contacts.name
+        fun bindView(users: User) {
+            username.text = users.username
+            name.text = users.name
 
-            Glide.with(context)
-                .load(contacts.img)
+            Picasso.get()
+                .load(users.img)
                 .into(image)
+
+            itemView.setOnClickListener {
+                onItemClickListener.invoke(users)
+            }
         }
     }
-
 }

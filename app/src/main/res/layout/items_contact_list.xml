@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -21,22 +22,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="@string/profile_id"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/contact_user_image"
-        app:layout_constraintTop_toTopOf="@+id/contact_user_image" />
+        app:layout_constraintTop_toTopOf="@+id/contact_user_image"
+        tools:text="@string/profile_id" />
 
     <TextView
         android:id="@+id/contact_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:text="@string/profile_name"
         android:textColor="@android:color/darker_gray"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/contact_user_id"
-        app:layout_constraintTop_toBottomOf="@+id/contact_user_id" />
+        app:layout_constraintTop_toBottomOf="@+id/contact_user_id"
+        tools:text="@string/profile_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
