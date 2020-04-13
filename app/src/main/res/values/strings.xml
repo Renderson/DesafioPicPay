@@ -15,4 +15,5 @@
     <string name="txt_flag_card">%1$s %2$s •</string>
     <string name="txt_edit">EDITAR</string>
     <string name="txt_payment">Pagar</string>
+    <string name="txt_contacts">Contatos</string>
 </resources>

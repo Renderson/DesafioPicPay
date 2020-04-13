@@ -1,5 +1,6 @@
 package com.renderson.desafiopicpay.presentation.contacts
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.renderson.desafiopicpay.data.PicPayService
@@ -12,9 +13,9 @@ import retrofit2.Response
 class ContactsViewModel : ViewModel() {
 
     val contactsLiveData: MutableLiveData<List<User>> = MutableLiveData()
+    val message: MutableLiveData<String> = MutableLiveData()
 
     fun getUsers() {
-
         PicPayService.serviceInterface.searchUsers().enqueue(object : Callback<List<User>> {
 
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
@@ -35,10 +36,13 @@ class ContactsViewModel : ViewModel() {
                     contactsLiveData.value = users
                 }
             }
-
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
-
+                message.value = "Error: $t"
             }
         })
+    }
+
+    fun showMessage(): LiveData<String> {
+        return message
     }
 }

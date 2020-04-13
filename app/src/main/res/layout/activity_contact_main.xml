@@ -60,6 +60,7 @@
         <include
             android:id="@+id/ll_search"
             layout="@layout/activity_search_user"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

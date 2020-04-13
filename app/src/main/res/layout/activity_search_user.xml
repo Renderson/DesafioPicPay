@@ -6,7 +6,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_margin="16dp"
         android:backgroundTint="#323232"
         app:cardCornerRadius="22dp"
@@ -15,40 +15,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchUser"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_margin="12dp">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/searchIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingStart="36dp"
-                android:src="@drawable/ic_action_search"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/searchUser"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
-                android:background="@android:color/transparent"
-                android:hint="A quem você deseja pagar"
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                android:maxLines="1"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/darker_gray"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/searchIcon"
-                app:layout_constraintStart_toEndOf="@+id/searchIcon"
-                app:layout_constraintTop_toTopOf="@+id/searchIcon" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="46dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@android:color/transparent"
+            android:imeOptions="actionDone"
+            app:closeIcon="@drawable/ic_action_close"
+            app:iconifiedByDefault="false"
+            app:queryHint="A quem você deseja pagar"
+            app:searchIcon="@drawable/ic_action_search" />
 
     </androidx.cardview.widget.CardView>
 

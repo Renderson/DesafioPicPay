@@ -1,18 +1,25 @@
 package com.renderson.desafiopicpay.presentation.contacts.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.renderson.desafiopicpay.R
 import com.renderson.desafiopicpay.data.model.User
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.items_contact_list.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ContactAdapter(
-    private val users: List<User>,
+    private var users: List<User>,
     private val onItemClickListener: ((user: User) -> Unit)
-) : RecyclerView.Adapter<ContactAdapter.ContactsViewHolder>() {
+) : RecyclerView.Adapter<ContactAdapter.ContactsViewHolder>(), Filterable {
+
+    private var usersList: List<User> = users
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -23,10 +30,10 @@ class ContactAdapter(
         return ContactsViewHolder(itemView, onItemClickListener)
     }
 
-    override fun getItemCount() = users.count()
+    override fun getItemCount() = usersList.count()
 
     override fun onBindViewHolder(holder: ContactsViewHolder, position: Int) {
-        holder.bindView(users[position])
+        holder.bindView(usersList[position])
     }
 
     class ContactsViewHolder(
@@ -48,6 +55,43 @@ class ContactAdapter(
 
             itemView.setOnClickListener {
                 onItemClickListener.invoke(users)
+            }
+        }
+    }
+
+    override fun getFilter(): Filter? {
+        return object : Filter() {
+            override fun performFiltering(charSequence: CharSequence): FilterResults {
+                val charString = charSequence.toString()
+                if (charString.isEmpty()) {
+                    usersList = users
+                } else {
+                    val filteredList: MutableList<User> =
+                        ArrayList()
+                    for (row in users) {
+                        if (row.name.toLowerCase(Locale.ROOT).contains(charString.toLowerCase(Locale.ROOT)) ||
+                            row.username.toLowerCase(Locale.ROOT).contains(charString.toLowerCase(
+                                Locale.ROOT
+                            )
+                            )
+                        ) {
+                            filteredList.add(row)
+                        }
+                    }
+                    usersList = filteredList
+                }
+                val filterResults = FilterResults()
+                filterResults.values = usersList
+                return filterResults
+            }
+
+            override fun publishResults(
+                charSequence: CharSequence,
+                filterResults: FilterResults
+            ) {
+                usersList = filterResults.values as List<User>
+                Log.i("LISTADAPTER", usersList.toString())
+                notifyDataSetChanged()
             }
         }
     }
