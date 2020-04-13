@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -67,7 +68,7 @@ class ContactActivity : AppCompatActivity() {
         searchContact?.setTextColor(ContextCompat.getColor(this, R.color.color_white))
         searchContact?.setHintTextColor(ContextCompat.getColor(this, R.color.search_text))
 
-        contactSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        searchUser.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
             override fun onQueryTextChange(query: String): Boolean {
                 adapter.filter!!.filter(query)
@@ -80,6 +81,34 @@ class ContactActivity : AppCompatActivity() {
             }
 
         })
+
+        contactSearch.setOnQueryTextFocusChangeListener { _, hasFocus ->
+            this.changeFocusSearch(contactSearch, hasFocus)
+        }
+    }
+
+    private fun changeFocusSearch(
+        contactSearch: SearchView,
+        hasFocus: Boolean
+    ) {
+        val iconClose: ImageView = searchUser.findViewById(R.id.search_close_btn)
+        val iconSearch: ImageView = searchUser.findViewById(R.id.search_mag_icon)
+
+        contactSearch.isSelected = hasFocus
+        iconClose.setColorFilter(ContextCompat.getColor(this@ContactActivity, R.color.color_white))
+        iconSearch.setColorFilter(ContextCompat.getColor(this@ContactActivity, R.color.color_white))
+        contactSearch.setBackgroundResource(R.drawable.shape_button_able)
+
+        contactSearch.isIconified = !hasFocus
+        if (!hasFocus) {
+            iconSearch.setColorFilter(
+                ContextCompat.getColor(
+                    this@ContactActivity,
+                    R.color.search_text
+                )
+            )
+            contactSearch.setBackgroundResource(R.drawable.shape_search_disable)
+        }
     }
 
     private fun showMessage(viewModel: ContactsViewModel) {
