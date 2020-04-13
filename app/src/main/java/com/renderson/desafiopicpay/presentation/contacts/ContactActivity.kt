@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.renderson.desafiopicpay.R
 import com.renderson.desafiopicpay.presentation.contacts.adapter.ContactAdapter
 import kotlinx.android.synthetic.main.activity_contact_main.*
-import kotlinx.android.synthetic.main.activity_search_user.*
+import kotlinx.android.synthetic.main.activity_search.*
 
 class ContactActivity : AppCompatActivity() {
 
@@ -62,13 +62,13 @@ class ContactActivity : AppCompatActivity() {
     }
 
     private fun searchListener(adapter: ContactAdapter) {
-        val contactSearch: SearchView = findViewById(R.id.searchUser)
+        val searchView: SearchView = findViewById(R.id.search)
 
-        val searchContact: EditText? = searchUser?.findViewById(R.id.search_src_text)
-        searchContact?.setTextColor(ContextCompat.getColor(this, R.color.color_white))
-        searchContact?.setHintTextColor(ContextCompat.getColor(this, R.color.search_text))
+        val searchText: EditText? = search?.findViewById(R.id.search_src_text)
+        searchText?.setTextColor(ContextCompat.getColor(this, R.color.color_white))
+        searchText?.setHintTextColor(ContextCompat.getColor(this, R.color.search_text))
 
-        searchUser.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
             override fun onQueryTextChange(query: String): Boolean {
                 adapter.filter!!.filter(query)
@@ -82,32 +82,32 @@ class ContactActivity : AppCompatActivity() {
 
         })
 
-        contactSearch.setOnQueryTextFocusChangeListener { _, hasFocus ->
-            this.changeFocusSearch(contactSearch, hasFocus)
+        searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
+            this.changeStylesSearch(searchView, hasFocus)
         }
     }
 
-    private fun changeFocusSearch(
-        contactSearch: SearchView,
+    private fun changeStylesSearch(
+        searchView: SearchView,
         hasFocus: Boolean
     ) {
-        val iconClose: ImageView = searchUser.findViewById(R.id.search_close_btn)
-        val iconSearch: ImageView = searchUser.findViewById(R.id.search_mag_icon)
+        val searchCloseBtn: ImageView = search.findViewById(R.id.search_close_btn)
+        val searchMagIcon: ImageView = search.findViewById(R.id.search_mag_icon)
 
-        contactSearch.isSelected = hasFocus
-        iconClose.setColorFilter(ContextCompat.getColor(this@ContactActivity, R.color.color_white))
-        iconSearch.setColorFilter(ContextCompat.getColor(this@ContactActivity, R.color.color_white))
-        contactSearch.setBackgroundResource(R.drawable.shape_button_able)
+        searchView.isSelected = hasFocus
+        searchCloseBtn.setColorFilter(ContextCompat.getColor(this@ContactActivity, R.color.color_white))
+        searchMagIcon.setColorFilter(ContextCompat.getColor(this@ContactActivity, R.color.color_white))
+        searchView.setBackgroundResource(R.drawable.shape_search_able)
 
-        contactSearch.isIconified = !hasFocus
+        searchView.isIconified = !hasFocus
         if (!hasFocus) {
-            iconSearch.setColorFilter(
+            searchMagIcon.setColorFilter(
                 ContextCompat.getColor(
                     this@ContactActivity,
                     R.color.search_text
                 )
             )
-            contactSearch.setBackgroundResource(R.drawable.shape_search_disable)
+            searchView.setBackgroundResource(R.drawable.shape_search_disable)
         }
     }
 
