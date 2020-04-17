@@ -1,4 +1,4 @@
-package com.renderson.desafiopicpay.data
+package com.renderson.desafiopicpay.data.network
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -21,5 +21,6 @@ object PicPayService {
         .client(okHttpClient)
         .build()
 
-    val serviceInterface: ServiceInterface = retrofit.create(ServiceInterface::class.java)
+    val serviceInterface: ServiceInterface = retrofit.create(
+        ServiceInterface::class.java)
 }

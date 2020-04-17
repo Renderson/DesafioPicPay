@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.renderson.desafiopicpay.R
+import com.renderson.desafiopicpay.presentation.ContactsViewModel
 import com.renderson.desafiopicpay.presentation.contacts.adapter.ContactAdapter
 import com.renderson.desafiopicpay.presentation.payment.PaymentActivity
 import kotlinx.android.synthetic.main.activity_contact_main.*

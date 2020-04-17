@@ -6,16 +6,23 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProviders
 import com.renderson.desafiopicpay.R
+import com.renderson.desafiopicpay.data.model.Transaction
 import com.renderson.desafiopicpay.data.model.User
+import com.renderson.desafiopicpay.presentation.ContactsViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_payment.*
 
-open class PaymentActivity: PaymentBasic() {
+open class PaymentActivity : PaymentBasic() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
+
+        val viewModel: ContactsViewModel = ViewModelProviders.of(this).get(
+            ContactsViewModel::class.java
+        )
 
         val user = intent.getSerializableExtra(USER_MODEL) as User
 
@@ -27,8 +34,17 @@ open class PaymentActivity: PaymentBasic() {
             finish()
         }
 
-        transaction_btn_payment.setOnClickListener{
+        transaction_btn_payment.setOnClickListener {
             val valor: String = transaction_value.text.toString()
+            val transaction = Transaction(
+                card_number = "1111111111111111",
+                cvv = 789,
+                value = valor,
+                expiry_date = "01/18",
+                destination_user_id = user.id
+            )
+            viewModel.transactionEntryUser(transaction)
+
             Toast.makeText(this, "Deposito: " + user.id + " " + valor, Toast.LENGTH_LONG).show()
         }
     }
@@ -51,14 +67,16 @@ open class PaymentActivity: PaymentBasic() {
                 start: Int,
                 count: Int,
                 after: Int
-            ) {}
+            ) {
+            }
 
             override fun onTextChanged(
                 s: CharSequence,
                 start: Int,
                 before: Int,
                 count: Int
-            ) {}
+            ) {
+            }
 
             override fun afterTextChanged(s: Editable) {
                 transaction_value.removeTextChangedListener(this)
