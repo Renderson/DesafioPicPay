@@ -1,8 +1,11 @@
 package com.renderson.desafiopicpay.data.model
 
-data class User (
-    val id: Int,
-    val name: String,
-    val img: String,
-    val username: String
-)
+import com.google.gson.annotations.SerializedName
+import java.io.Serializable
+
+data class User(
+    @SerializedName("id") val id: Int,
+    @SerializedName("name") val name: String,
+    @SerializedName("img") val img: String,
+    @SerializedName("username") val username: String
+) : Serializable

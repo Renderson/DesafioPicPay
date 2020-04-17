@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="46dp"
         android:layout_margin="16dp"
-        android:background="@drawable/shape_button_disable"
+        android:background="@drawable/shape_search_disable"
         android:clickable="true"
         android:focusable="true"
         android:imeOptions="actionDone"

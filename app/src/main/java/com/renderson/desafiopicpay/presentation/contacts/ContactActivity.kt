@@ -1,6 +1,5 @@
 package com.renderson.desafiopicpay.presentation.contacts
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
@@ -15,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.renderson.desafiopicpay.R
 import com.renderson.desafiopicpay.presentation.contacts.adapter.ContactAdapter
+import com.renderson.desafiopicpay.presentation.payment.PaymentActivity
 import kotlinx.android.synthetic.main.activity_contact_main.*
 import kotlinx.android.synthetic.main.activity_search.*
 
@@ -46,13 +46,8 @@ class ContactActivity : AppCompatActivity() {
                     )
                     setHasFixedSize(true)
                     adapter = ContactAdapter(users) { user ->
-                        startActivity(Intent(this@ContactActivity, PaymentActivity::class.java))
+                        val intent = PaymentActivity.getStartIntent(this@ContactActivity, user)
                         this@ContactActivity.startActivity(intent)
-                        Toast.makeText(
-                            applicationContext,
-                            "Contato selecionado: ${user.id}",
-                            Toast.LENGTH_SHORT
-                        ).show()
                     }
                     searchListener(adapter as ContactAdapter)
                 }

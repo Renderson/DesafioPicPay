@@ -19,7 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.contacts.PaymentActivity" />
+        <activity android:name=".presentation.payment.PaymentActivity"/>
+        <activity android:name=".presentation.payment.PaymentBasic" />
     </application>
 
 </manifest>

@@ -1,98 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/transaction_image"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="8dp"
-        android:src="@mipmap/ic_launcher"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/transaction_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:text="@string/profile_id"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/transaction_image"
-        app:layout_constraintStart_toStartOf="@+id/transaction_image"
-        app:layout_constraintTop_toBottomOf="@+id/transaction_image" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/transaction_user"
-        app:layout_constraintStart_toStartOf="@+id/transaction_user"
-        app:layout_constraintTop_toBottomOf="@+id/transaction_user">
-
-        <TextView
-            android:id="@+id/transaction_currency"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/txt_currency"
-            android:textColor="@color/color_button_disable"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/transaction_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:inputType="number|numberDecimal"
-            android:text="@string/txt_value"
-            android:textColor="@color/color_button_disable"
-            android:textSize="48sp" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/transaction_card"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/txt_flag_card"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-    <TextView
-        android:id="@+id/transaction_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="@string/txt_edit"
-        android:textAllCaps="true"
-        android:textColor="@color/colorAccent"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/transaction_card"
-        app:layout_constraintStart_toEndOf="@+id/transaction_card"
-        app:layout_constraintTop_toTopOf="@+id/transaction_card" />
-
-    <Button
-        android:id="@+id/transaction_btn_payment"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="12dp"
-        android:background="@drawable/button_selector"
-        android:enabled="false"
-        android:gravity="center"
-        android:text="@string/txt_payment"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <RelativeLayout
+            android:id="@+id/actionArrow"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_gravity="left"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            tools:ignore="RtlHardcoded">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_action_arrow" />
+
+        </RelativeLayout>
+
+        <!--<androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/actionArrow"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:background="@drawable/ic_action_arrow" />-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="60dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/payment_user_image"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="4dp"
+                    android:src="@drawable/ic_account_default" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/payment_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="8dp"
+                    android:text="@string/profile_id"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="32dp"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/transaction_currency"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/txt_currency"
+                        android:textColor="@color/color_button_disable"
+                        android:textSize="18sp" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:focusable="true"
+                        android:id="@+id/transaction_value"
+                        android:focusableInTouchMode="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="8dp"
+                        android:background="@null"
+                        android:cursorVisible="false"
+                        android:digits="0123456789.,"
+                        android:inputType="numberDecimal"
+                        android:maxLength="10"
+                        android:text="@string/txt_value"
+                        android:textColor="@color/color_button_disable"
+                        android:textSize="54sp"
+                        tools:ignore="Autofill" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="32dp"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/transaction_card"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_flag_card"
+                        android:textSize="18sp" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/transaction_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_edit"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/transaction_btn_payment"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="12dp"
+                android:background="@drawable/button_selector"
+                android:enabled="false"
+                android:text="@string/txt_payment"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</ScrollView>
