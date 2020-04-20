@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#212121</color>
+    <color name="colorPrimary">#1D1E20</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#21C25E</color>
 
@@ -14,7 +14,8 @@
 
     <color name="color_tint">#999999</color>
 
-    <color name="color_white_opacity_5">#80FFFFFF</color>
+    <color name="color_white_opacity_1">#3D4451</color>
+    <color name="color_white_opacity_2">#151516</color>
     <color name="color_white_opacity_8">#CCFFFFFF</color>
     <color name="color_white_opacity_4">#66FFFFFF</color>
     <color name="color_white_opacity_6">#99FFFFFF</color>
