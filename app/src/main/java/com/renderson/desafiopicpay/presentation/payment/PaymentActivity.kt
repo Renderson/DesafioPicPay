@@ -5,14 +5,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.renderson.desafiopicpay.R
 import com.renderson.desafiopicpay.data.model.Transaction
 import com.renderson.desafiopicpay.data.model.User
 import com.renderson.desafiopicpay.presentation.ContactsViewModel
+import com.renderson.desafiopicpay.presentation.receipt.ReceiptFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_payment.*
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 open class PaymentActivity : PaymentBasic() {
 
@@ -34,6 +40,36 @@ open class PaymentActivity : PaymentBasic() {
             finish()
         }
 
+        this.sendTransaction(user, viewModel)
+
+        this.getInfoTransaction(viewModel)
+    }
+
+    private fun getInfoTransaction(viewModel: ContactsViewModel) {
+        viewModel.transactionLiveData.observe(this, Observer {
+            it.let { transaction ->
+                if (transaction.status == "Aprovada") {
+
+                    val bundle = Bundle()
+                    bundle.putSerializable("transaction_detail", transaction)
+                    val fragment = ReceiptFragment()
+                    fragment.arguments = bundle
+                    fragment.show(supportFragmentManager, fragment.tag)
+
+                    //finish()
+                } else {
+                    Toast.makeText(this, "Transação: ${transaction.status}", Toast.LENGTH_LONG)
+                        .show()
+                }
+                //return@Observer
+            }
+        })
+    }
+
+    private fun sendTransaction(
+        user: User,
+        viewModel: ContactsViewModel
+    ) {
         transaction_btn_payment.setOnClickListener {
             val valor: String = transaction_value.text.toString()
             val transaction = Transaction(
@@ -45,7 +81,9 @@ open class PaymentActivity : PaymentBasic() {
             )
             viewModel.transactionEntryUser(transaction)
 
-            Toast.makeText(this, "Deposito: " + user.id + " " + valor, Toast.LENGTH_LONG).show()
+            /*val date = Date()
+            val formatter: DateFormat = SimpleDateFormat("dd/MMM/yyyy HH:mm")
+            Log.i("DATE", formatter.format(date))*/
         }
     }
 

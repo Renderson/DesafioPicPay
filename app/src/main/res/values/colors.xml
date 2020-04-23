@@ -4,7 +4,6 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#21C25E</color>
 
-
     <color name="color_white">#FFFFFF</color>
 
     <color name="search_background">#2B2C2F</color>
@@ -16,7 +15,7 @@
 
     <color name="color_white_opacity_1">#3D4451</color>
     <color name="color_white_opacity_2">#151516</color>
-    <color name="color_white_opacity_8">#CCFFFFFF</color>
-    <color name="color_white_opacity_4">#66FFFFFF</color>
+    <color name="color_white_opacity_8">#838385</color>
+    <color name="color_white_opacity_4">#3F4041</color>
     <color name="color_white_opacity_6">#99FFFFFF</color>
 </resources>
