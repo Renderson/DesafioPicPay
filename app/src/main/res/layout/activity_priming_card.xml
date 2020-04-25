@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/actionArrow"
             android:layout_width="55dp"
             android:layout_height="55dp"
@@ -18,19 +18,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageView2"
             android:layout_width="180dp"
             android:layout_height="120dp"
-            android:background="@drawable/credit_card"
-            android:contentDescription="imageCard"
+            android:background="@drawable/ic_ilustration_creditc"
             app:layout_constraintBottom_toTopOf="@+id/btn_sign_card"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.33" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,7 +45,7 @@
             app:layout_constraintStart_toStartOf="@+id/imageView2"
             app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,7 +61,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView2"
             app:layout_constraintVertical_bias="0.0" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_sign_card"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -71,8 +70,9 @@
             android:gravity="center"
             android:text="@string/txt_button_sign_card"
             android:textAlignment="center"
+            android:textAllCaps="false"
             android:textSize="18sp"
-            android:textStyle="bold"
+            android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

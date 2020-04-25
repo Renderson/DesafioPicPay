@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    tools:keep="@layout/activity_card_register">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/actionArrow"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -18,12 +20,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txt_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="Cadastrar cartão"
+            android:text="@string/txt_register_card"
             android:textSize="28sp"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@+id/actionArrow" />
@@ -47,7 +49,7 @@
                 android:hint="@string/txt_number_card"
                 android:imeOptions="actionNext"
                 android:inputType="textNoSuggestions|number"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,13 +72,14 @@
                 android:hint="@string/txt_card_holder_name"
                 android:imeOptions="actionNext"
                 android:inputType="textAutoComplete|textCapCharacters"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:baselineAligned="false"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +102,7 @@
                     android:hint="@string/txt_due_date"
                     android:imeOptions="actionNext"
                     android:inputType="textAutoComplete|date"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -120,23 +123,24 @@
                     android:hint="@string/txt_cvv"
                     android:imeOptions="actionNext"
                     android:inputType="textAutoComplete|date"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/register_btn_card"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="12dp"
             android:background="@drawable/shape_button"
             android:gravity="center"
-            android:text="Salvar"
+            android:text="@string/txt_save"
             android:textAlignment="center"
+            android:textAllCaps="false"
             android:textSize="18sp"
-            android:textStyle="bold"
+            android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

@@ -22,4 +22,7 @@
     <string name="txt_id_card">Cartão Master %1$s</string>
     <string name="txt_currency_br">R$ %1$s</string>
     <string name="txt_total_paid">Total Pago</string>
+    <string name="txt_register_card">Cadastrar cartão</string>
+    <string name="txt_save">Salvar</string>
+    <string name="txt_search">A quem você deseja pagar</string>
 </resources>

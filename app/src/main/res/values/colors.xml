@@ -8,14 +8,12 @@
 
     <color name="search_background">#2B2C2F</color>
     <color name="search_text">#ACB1BD</color>
-
     <color name="color_button_disable">#8F929D</color>
 
-    <color name="color_tint">#999999</color>
+    <color name="color_mostly_black">#151516</color>
+    <color name="color_very_dark_grayish_blue">#3D4451</color>
+    <color name="color_baltic_sea">#3F4041</color>
 
-    <color name="color_white_opacity_1">#3D4451</color>
-    <color name="color_white_opacity_2">#151516</color>
-    <color name="color_white_opacity_8">#838385</color>
-    <color name="color_white_opacity_4">#3F4041</color>
     <color name="color_white_opacity_6">#99FFFFFF</color>
+    <color name="color_white_opacity_8">#CCFFFFFF</color>
 </resources>

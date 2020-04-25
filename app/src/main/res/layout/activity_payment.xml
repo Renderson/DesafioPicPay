@@ -27,12 +27,6 @@
 
         </RelativeLayout>
 
-        <!--<androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/actionArrow"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:background="@drawable/ic_action_arrow" />-->
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -47,8 +41,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/payment_user_image"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="4dp"
                     android:src="@drawable/ic_account_default" />
@@ -60,7 +54,8 @@
                     android:layout_gravity="center"
                     android:layout_margin="8dp"
                     android:text="@string/profile_id"
-                    android:textSize="18sp" />
+                    android:textColor="@color/color_white"
+                    android:textSize="14sp" />
 
                 <LinearLayout
                     android:id="@+id/linearLayout"
@@ -110,12 +105,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/txt_flag_card"
-                        android:textSize="18sp" />
+                        android:textSize="14sp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/transaction_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
                         android:text="@string/txt_edit"
                         android:textAllCaps="true"
                         android:textColor="@color/colorAccent"
@@ -137,7 +133,7 @@
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="normal" />
 
         </LinearLayout>
 

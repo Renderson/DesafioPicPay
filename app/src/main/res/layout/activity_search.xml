@@ -16,7 +16,7 @@
         app:closeIcon="@drawable/ic_action_close"
         app:iconifiedByDefault="false"
         app:queryBackground="@android:color/transparent"
-        app:queryHint="A quem você deseja pagar"
+        app:queryHint="@string/txt_search"
         app:searchIcon="@drawable/ic_action_search" />
 
 </RelativeLayout>
