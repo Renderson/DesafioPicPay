@@ -1,7 +1,6 @@
 package com.renderson.desafiopicpay.presentation.contacts
 
 import android.os.Bundle
-import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
@@ -108,7 +107,7 @@ class ContactActivity : AppCompatActivity() {
     }
 
     private fun showMessage(viewModel: ContactsViewModel) {
-        progressBar.visibility = View.GONE
+        //progressBar.visibility = View.GONE
         viewModel.message.observe(this, Observer { message ->
             Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         })
