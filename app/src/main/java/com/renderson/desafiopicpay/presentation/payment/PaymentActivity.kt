@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -16,9 +15,6 @@ import com.renderson.desafiopicpay.presentation.ContactsViewModel
 import com.renderson.desafiopicpay.presentation.receipt.ReceiptFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_payment.*
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
 
 open class PaymentActivity : PaymentBasic() {
 
