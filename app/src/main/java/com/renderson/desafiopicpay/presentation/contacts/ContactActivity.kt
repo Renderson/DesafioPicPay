@@ -106,11 +106,21 @@ class ContactActivity : AppCompatActivity() {
         }
     }
 
+    private fun clearSearchText() {
+        val searchText: EditText? = search?.findViewById(R.id.search_src_text)
+        searchText!!.clearFocus()
+    }
+
     private fun showMessage(viewModel: ContactsViewModel) {
         //progressBar.visibility = View.GONE
         viewModel.message.observe(this, Observer { message ->
             Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         })
         viewModel.showMessage()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        this.clearSearchText()
     }
 }
