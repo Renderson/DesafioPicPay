@@ -1,24 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    tools:keep="@layout/activity_card_register">
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <RelativeLayout
             android:id="@+id/actionArrow"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="4dp"
-            android:background="@drawable/ic_action_arrow"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_gravity="left"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlHardcoded">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_action_arrow" />
+
+        </RelativeLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txt_card"
@@ -43,12 +53,13 @@
             app:layout_constraintTop_toBottomOf="@+id/txt_card">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editCardNumber"
+                android:id="@+id/register_card_number"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/txt_number_card"
                 android:imeOptions="actionNext"
                 android:inputType="textNoSuggestions|number"
+                android:maxLength="16"
                 android:textSize="16sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -66,7 +77,7 @@
             app:layout_constraintTop_toBottomOf="@+id/inputCardNumber">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editUserName"
+                android:id="@+id/register_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/txt_card_holder_name"
@@ -77,6 +88,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCompat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
@@ -96,7 +108,7 @@
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editDate"
+                    android:id="@+id/register_expiration_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/txt_due_date"
@@ -117,12 +129,13 @@
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editCVV"
+                    android:id="@+id/register_cvv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/txt_cvv"
                     android:imeOptions="actionNext"
-                    android:inputType="textAutoComplete|date"
+                    android:inputType="number"
+                    android:maxLength="3"
                     android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -136,15 +149,20 @@
             android:layout_margin="12dp"
             android:background="@drawable/shape_button"
             android:gravity="center"
+            android:onClick="saveCreditCard"
             android:text="@string/txt_save"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textSize="18sp"
             android:textStyle="normal"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.666"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat"
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.core.widget.NestedScrollView>
+</ScrollView>
