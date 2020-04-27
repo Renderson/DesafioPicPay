@@ -12,6 +12,7 @@ import com.renderson.desafiopicpay.R
 import com.renderson.desafiopicpay.data.model.Transaction
 import com.renderson.desafiopicpay.data.model.User
 import com.renderson.desafiopicpay.presentation.ContactsViewModel
+import com.renderson.desafiopicpay.presentation.creditCard.PrimingCardActivity
 import com.renderson.desafiopicpay.presentation.receipt.ReceiptFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_payment.*
@@ -34,6 +35,11 @@ open class PaymentActivity : PaymentBasic() {
 
         actionArrow.setOnClickListener {
             finish()
+        }
+
+        transaction_edit.setOnClickListener {
+            val intent = Intent(this, PrimingCardActivity::class.java)
+            startActivity(intent)
         }
 
         this.sendTransaction(user, viewModel)
