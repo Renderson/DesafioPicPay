@@ -22,6 +22,8 @@
         </activity>
         <activity android:name=".presentation.payment.PaymentActivity"/>
         <activity android:name=".presentation.payment.PaymentBasic" />
+        <activity android:name=".presentation.creditCard.PrimingCardActivity" />
+        <activity android:name=".presentation.creditCard.CardRegisterActivity" />
     </application>
 
 </manifest>
