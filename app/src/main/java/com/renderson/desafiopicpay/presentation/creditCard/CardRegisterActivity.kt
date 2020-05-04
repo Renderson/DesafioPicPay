@@ -5,11 +5,14 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.renderson.desafiopicpay.R
+import com.renderson.desafiopicpay.data.database.DataBaseClient
 import com.renderson.desafiopicpay.data.model.CreditCard
 import kotlinx.android.synthetic.main.activity_card_register.*
 import kotlinx.android.synthetic.main.activity_payment.actionArrow
+import java.util.*
 
 class CardRegisterActivity : AppCompatActivity() {
 
@@ -26,7 +29,32 @@ class CardRegisterActivity : AppCompatActivity() {
             finish()
         }
 
+        register_btn_card.setOnClickListener {
+            saveCreditCard()
+        }
+
+        val list: List<CreditCard?>? =
+            DataBaseClient.getInstance(applicationContext)?.appDatabase?.creditCardDao()?.getAll()
+
+        if (list != null) {
+            this.insertValues(list)
+        }
         this.iniFields()
+    }
+
+    private fun insertValues(list: List<CreditCard?>) {
+        list.map { items ->
+            register_card_number.setText(items!!.card_number)
+            register_name.setText(items.name)
+            register_expiration_date.setText(items.expiry_date)
+            register_cvv.setText(items.cvv)
+
+            validateCardNumber(items.card_number)
+            validateNameCard(items.name)
+            validateFieldDate(items.expiry_date)
+            validateCVV(items.cvv)
+            showButton()
+        }
     }
 
     private fun iniFields() {
@@ -59,7 +87,6 @@ class CardRegisterActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 validateExpirationDate(s.toString())
             }
-
         })
 
         register_cvv.addTextChangedListener(object : TextWatcher {
@@ -84,9 +111,43 @@ class CardRegisterActivity : AppCompatActivity() {
         this.showButton()
     }
 
-    private fun validateExpirationDate(value: String) {
-        validateExpirationDate = value.length == 5
-        this.showButton()
+    private fun validateExpirationDate(s: String) {
+        this.validateFieldDate(s)
+    }
+
+    private fun validateFieldDate(s: String) {
+        val before = 0
+        var working = s
+        var isValid = true
+        if (working.length == 2 && before == 0) {
+            if (Integer.parseInt(working) < 1 || Integer.parseInt(working) > 12) {
+                isValid = false
+            } else {
+                working += "/"
+                register_expiration_date.setText(working)
+                register_expiration_date.setSelection(working.length)
+            }
+        }
+        if (working.length == 5 && before == 0) {
+            val enteredYear = working.substring(3)
+            val currentYear = Calendar.getInstance()
+                .get(Calendar.YEAR) % 100//getting last 2 digits of current year i.e. 2018 % 100 = 18
+            if (Integer.parseInt(enteredYear) < currentYear && currentYear >= currentYear) {
+                isValid = false
+            }
+        } else if (working.length != 5) {
+            isValid = false
+        }
+
+        if (!isValid) {
+            inputDate.error = "MM/YY"
+            validateExpirationDate = false
+        } else {
+            inputDate.error = null
+            validateExpirationDate = true
+            this.showButton()
+            Log.i("DATEEXP", validateExpirationDate.toString())
+        }
     }
 
     private fun validateCVV(value: String) {
@@ -107,7 +168,7 @@ class CardRegisterActivity : AppCompatActivity() {
         finish()
     }
 
-    fun saveCreditCard(view: View) {
+    private fun saveCreditCard() {
         this.saveCreditCardDB(
             register_card_number.text.toString(),
             register_name.text.toString(),
@@ -122,13 +183,25 @@ class CardRegisterActivity : AppCompatActivity() {
         expiration: String,
         cvv: String
     ) {
-        val creditCard = CreditCard(
+        val card = CreditCard(
             card_number = cardNumber,
             name = name,
             expiry_date = expiration,
             cvv = cvv
         )
-        //model.saveCreditCard(creditCard)
-        Log.i("SAVECARD", creditCard.toString())
+        this.instanceDataBase(card)
+    }
+
+    private fun instanceDataBase(card: CreditCard) {
+        DataBaseClient.getInstance(applicationContext)?.appDatabase?.creditCardDao()?.delete()
+        DataBaseClient.getInstance(applicationContext)?.appDatabase?.creditCardDao()?.save(card)
+        DataBaseClient.getInstance(applicationContext)?.destroyInstance()
+        Toast.makeText(applicationContext, "Dados salvos", Toast.LENGTH_LONG).show()
+        finish()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        this.iniFields()
     }
 }
