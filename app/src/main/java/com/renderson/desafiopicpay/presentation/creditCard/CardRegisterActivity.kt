@@ -165,6 +165,7 @@ class CardRegisterActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        DataBaseClient.getInstance(this)?.destroyInstance()
         finish()
     }
 
@@ -203,5 +204,10 @@ class CardRegisterActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         this.iniFields()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        DataBaseClient.getInstance(this)?.destroyInstance()
     }
 }

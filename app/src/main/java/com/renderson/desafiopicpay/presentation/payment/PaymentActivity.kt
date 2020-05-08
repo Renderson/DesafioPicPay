@@ -9,15 +9,23 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.renderson.desafiopicpay.R
+import com.renderson.desafiopicpay.data.database.DataBaseClient
+import com.renderson.desafiopicpay.data.model.CreditCard
 import com.renderson.desafiopicpay.data.model.Transaction
 import com.renderson.desafiopicpay.data.model.User
 import com.renderson.desafiopicpay.presentation.ContactsViewModel
 import com.renderson.desafiopicpay.presentation.creditCard.PrimingCardActivity
 import com.renderson.desafiopicpay.presentation.receipt.ReceiptFragment
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_payment.*
 
 open class PaymentActivity : PaymentBasic() {
+
+    private var list: List<CreditCard?>? = null
+    private var cardNumberDao: String? = "-----------------"
+    private var expiryDateDao: String? = null
+    private var cvvDao: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +34,8 @@ open class PaymentActivity : PaymentBasic() {
         val viewModel: ContactsViewModel = ViewModelProviders.of(this).get(
             ContactsViewModel::class.java
         )
+
+        //this.getInfoCardDataBase()
 
         val user = intent.getSerializableExtra(USER_MODEL) as User
 
@@ -45,6 +55,31 @@ open class PaymentActivity : PaymentBasic() {
         this.sendTransaction(user, viewModel)
 
         this.getInfoTransaction(viewModel)
+    }
+
+    private fun setInfoCardNumber() {
+        val cardNumberEdit = cardNumberDao!!.substring(cardNumberDao!!.length - 4)
+        transaction_card.text = (resources.getString(R.string.txt_flag_card, cardNumberEdit))
+
+    }
+
+    private fun getInfoCardDataBase() {
+        list =
+            DataBaseClient.getInstance(applicationContext)?.appDatabase?.creditCardDao()?.getAll()!!
+
+        if (list!!.isEmpty()) {
+            val intent = Intent(this, PrimingCardActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else {
+
+            list!!.map {
+                cardNumberDao = it!!.card_number
+                expiryDateDao = it.expiry_date
+                cvvDao = it.cvv
+            }
+            this.setInfoCardNumber()
+        }
     }
 
     private fun getInfoTransaction(viewModel: ContactsViewModel) {
@@ -75,17 +110,13 @@ open class PaymentActivity : PaymentBasic() {
         transaction_btn_payment.setOnClickListener {
             val valor: String = transaction_value.text.toString()
             val transaction = Transaction(
-                card_number = "1111111111111111",
-                cvv = 789,
+                card_number = cardNumberDao.toString(),
+                cvv = cvvDao.toString(),
                 value = valor,
-                expiry_date = "01/18",
+                expiry_date = expiryDateDao.toString(),
                 destination_user_id = user.id
             )
             viewModel.transactionEntryUser(transaction)
-
-            /*val date = Date()
-            val formatter: DateFormat = SimpleDateFormat("dd/MMM/yyyy HH:mm")
-            Log.i("DATE", formatter.format(date))*/
         }
     }
 
@@ -138,6 +169,18 @@ open class PaymentActivity : PaymentBasic() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        DataBaseClient.getInstance(this)?.destroyInstance()
         finish()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        this.getInfoCardDataBase()
+        this.setInfoCardNumber()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        DataBaseClient.getInstance(this)?.destroyInstance()
     }
 }

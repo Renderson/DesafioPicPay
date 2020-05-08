@@ -12,12 +12,12 @@
     <string name="txt_cvv">CVV</string>
     <string name="txt_currency">R$</string>
     <string name="txt_value">0,00</string>
-    <string name="txt_flag_card">%1$s %2$s •</string>
+    <string name="txt_flag_card">MasterCard %1$s •</string>
     <string name="txt_edit">EDITAR</string>
     <string name="txt_payment">Pagar</string>
     <string name="txt_contacts">Contatos</string>
     <string name="txt_receipt">Recibo</string>
-    <string name="txt_date_transaction">19/02/2020 ás 16:34</string>
+    <string name="txt_date_transaction">%1$s ás %2$s</string>
     <string name="txt_id_transaction">Transação: %1$s</string>
     <string name="txt_id_card">Cartão Master %1$s</string>
     <string name="txt_currency_br">R$ %1$s</string>

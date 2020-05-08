@@ -11,8 +11,12 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.renderson.desafiopicpay.R
 import com.renderson.desafiopicpay.data.model.Receipt
+import com.renderson.desafiopicpay.presentation.util.dateFormat
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_complete_list.*
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ReceiptFragment : BottomSheetDialogFragment() {
 
@@ -21,7 +25,7 @@ class ReceiptFragment : BottomSheetDialogFragment() {
     private var bottomSheet: View? = null
     //private var bottomSheetPeekHeight = 0
 
-    fun newInstance(): ReceiptFragment? {
+    private fun newInstance(): ReceiptFragment? {
         return ReceiptFragment()
     }
 
@@ -42,6 +46,8 @@ class ReceiptFragment : BottomSheetDialogFragment() {
         receipt = arguments!!.getSerializable("transaction_detail") as Receipt
         Log.i("RECEIPT", receipt.id.toString())
 
+        this.newInstance()
+
         return view
         /*bottomSheetPeekHeight = resources
             .getDimensionPixelSize(R.dimen.bottom_sheet_default_peek_height)*/
@@ -55,6 +61,9 @@ class ReceiptFragment : BottomSheetDialogFragment() {
 
     private fun populateReceipt() {
         val res: Resources = resources
+        val (dateFormat, hourFormat) = dateFormat()
+
+        complete_date.text = res.getString(R.string.txt_date_transaction, dateFormat, hourFormat)
 
         receipt.let { receipt ->
             Picasso.get()
