@@ -1,4 +1,4 @@
-package com.renderson.desafiopicpay.presentation.contacts.adapter
+package com.renderson.desafiopicpay.presentation.contacts
 
 import android.util.Log
 import android.view.LayoutInflater

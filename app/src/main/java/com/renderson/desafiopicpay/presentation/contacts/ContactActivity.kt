@@ -8,17 +8,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.renderson.desafiopicpay.R
-import com.renderson.desafiopicpay.presentation.ContactsViewModel
-import com.renderson.desafiopicpay.presentation.contacts.adapter.ContactAdapter
+import com.renderson.desafiopicpay.data.network.ApiService
+import com.renderson.desafiopicpay.data.network.repository.ServiceApiDataSource
+import com.renderson.desafiopicpay.presentation.ViewModelFactory
 import com.renderson.desafiopicpay.presentation.payment.PaymentActivity
 import kotlinx.android.synthetic.main.activity_contact_main.*
 import kotlinx.android.synthetic.main.activity_search.*
 
 class ContactActivity : AppCompatActivity() {
+
+    private lateinit var viewModel: ContactsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,17 +30,21 @@ class ContactActivity : AppCompatActivity() {
         textCollapsing.text = getString(R.string.txt_contacts)
         //progressBar.visibility = View.VISIBLE
 
-        val viewModel: ContactsViewModel = ViewModelProviders.of(this).get(
-            ContactsViewModel::class.java
-        )
+         viewModel = ViewModelProvider(viewModelStore,
+             ViewModelFactory(ServiceApiDataSource(ApiService.serviceInterface))).get(
+             ContactsViewModel::class.java)
 
-        getValueViewModel(viewModel)
+        if (savedInstanceState == null) {
+            viewModel.getUsers()
+        }
+
+        getUsers(viewModel)
         showMessage(viewModel)
     }
 
-    private fun getValueViewModel(viewModel: ContactsViewModel) {
+    private fun getUsers(viewModel: ContactsViewModel) {
 
-        viewModel.contactsLiveData.observe(this, Observer {
+        viewModel.getUsersLiveData.observe(this, Observer {
             it?.let { users ->
                 with(recycler) {
                     layoutManager = LinearLayoutManager(
@@ -53,7 +60,6 @@ class ContactActivity : AppCompatActivity() {
                 }
             }
         })
-        viewModel.getUsers()
     }
 
     private fun searchListener(adapter: ContactAdapter) {
@@ -116,11 +122,20 @@ class ContactActivity : AppCompatActivity() {
         viewModel.message.observe(this, Observer { message ->
             Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         })
-        viewModel.showMessage()
+    }
+
+    private fun removeObserve() {
+        viewModel.getUsersLiveData.removeObservers(this)
+        viewModel.message.removeObservers(this)
     }
 
     override fun onStop() {
         super.onStop()
         this.clearSearchText()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        removeObserve()
     }
 }

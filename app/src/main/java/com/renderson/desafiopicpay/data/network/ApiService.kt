@@ -5,7 +5,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object PicPayService {
+object ApiService {
 
     private const val URL = "http://careers.picpay.com/tests/mobdev/"
 

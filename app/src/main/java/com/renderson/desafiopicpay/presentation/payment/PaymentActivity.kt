@@ -7,17 +7,19 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.renderson.desafiopicpay.R
 import com.renderson.desafiopicpay.data.database.DataBaseClient
 import com.renderson.desafiopicpay.data.model.CreditCard
 import com.renderson.desafiopicpay.data.model.Transaction
 import com.renderson.desafiopicpay.data.model.User
-import com.renderson.desafiopicpay.presentation.ContactsViewModel
+import com.renderson.desafiopicpay.data.network.ApiService
+import com.renderson.desafiopicpay.data.network.repository.ServiceApiDataSource
+import com.renderson.desafiopicpay.presentation.ViewModelFactory
+import com.renderson.desafiopicpay.presentation.contacts.ContactsViewModel
 import com.renderson.desafiopicpay.presentation.creditCard.PrimingCardActivity
 import com.renderson.desafiopicpay.presentation.receipt.ReceiptFragment
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_payment.*
 
 open class PaymentActivity : PaymentBasic() {
@@ -31,9 +33,10 @@ open class PaymentActivity : PaymentBasic() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
 
-        val viewModel: ContactsViewModel = ViewModelProviders.of(this).get(
-            ContactsViewModel::class.java
-        )
+        val viewModel = ViewModelProvider(viewModelStore,
+            ViewModelFactory(ServiceApiDataSource(ApiService.serviceInterface))
+        ).get(
+            ContactsViewModel::class.java)
 
         //this.getInfoCardDataBase()
 
