@@ -13,5 +13,5 @@ interface ServiceInterface {
     fun getUsers(): Call<List<UsersResponse>>
 
     @POST("transaction")
-    fun sendTransactionEntryUsers(@Body transaction: Transaction) : Call<TransactionResponse>
+    fun sendTransaction(@Body transaction: Transaction) : Call<TransactionResponse>
 }

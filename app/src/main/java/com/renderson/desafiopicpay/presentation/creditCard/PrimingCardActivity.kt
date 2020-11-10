@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.renderson.desafiopicpay.R
 import com.renderson.desafiopicpay.data.model.CreditCard
-import kotlinx.android.synthetic.main.activity_payment.actionArrow
+import kotlinx.android.synthetic.main.activity_transaction.actionArrow
 import kotlinx.android.synthetic.main.activity_priming_card.*
 
 class PrimingCardActivity: AppCompatActivity() {

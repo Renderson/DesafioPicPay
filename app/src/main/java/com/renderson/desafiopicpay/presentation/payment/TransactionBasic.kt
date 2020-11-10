@@ -4,7 +4,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.renderson.desafiopicpay.R
-import kotlinx.android.synthetic.main.activity_payment.*
+import kotlinx.android.synthetic.main.activity_transaction.*
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.text.ParseException
@@ -19,7 +19,7 @@ private var currencySymbol: String? = null
 private var locale: Locale? = null
 private var numberFormat: DecimalFormat? = null
 
-open class PaymentBasic : AppCompatActivity() {
+open class TransactionBasic : AppCompatActivity() {
 
     fun transactionValuesListener(s: String) {
         var text = s

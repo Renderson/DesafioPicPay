@@ -1,7 +1,9 @@
 package com.renderson.desafiopicpay.data.network.repository
 
+import com.renderson.desafiopicpay.data.model.Transaction
 import com.renderson.desafiopicpay.data.network.ServiceCallBack
 import com.renderson.desafiopicpay.data.network.ServiceInterface
+import com.renderson.desafiopicpay.data.network.response.TransactionResponse
 import com.renderson.desafiopicpay.data.network.response.UsersResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -35,6 +37,34 @@ class ServiceApiDataSource(private val service: ServiceInterface) : Repository {
                     resultCallback(ServiceCallBack.ServerError)
                 }
             })
+        } catch (e: Exception) {
+            resultCallback(ServiceCallBack.ServerError)
+        }
+    }
+
+    override suspend fun transaction(
+        transaction: Transaction, resultCallback: (serviceCallBack: ServiceCallBack) -> Unit
+    ) {
+        try {
+            service.sendTransaction(transaction)
+                .enqueue(object : Callback<TransactionResponse> {
+
+                    override fun onResponse(
+                        call: Call<TransactionResponse>,
+                        response: Response<TransactionResponse>
+                    ) {
+                        when {
+                            response.isSuccessful -> {
+                                resultCallback(ServiceCallBack.SuccessTransaction(response.body()?.transaction))
+                            }
+                            else -> resultCallback(ServiceCallBack.ApiError(response.code()))
+                        }
+                    }
+
+                    override fun onFailure(call: Call<TransactionResponse>, t: Throwable) {
+                        resultCallback(ServiceCallBack.ServerError)
+                    }
+                })
         } catch (e: Exception) {
             resultCallback(ServiceCallBack.ServerError)
         }

@@ -16,13 +16,12 @@ import com.renderson.desafiopicpay.data.model.User
 import com.renderson.desafiopicpay.data.network.ApiService
 import com.renderson.desafiopicpay.data.network.repository.ServiceApiDataSource
 import com.renderson.desafiopicpay.presentation.ViewModelFactory
-import com.renderson.desafiopicpay.presentation.contacts.ContactsViewModel
 import com.renderson.desafiopicpay.presentation.creditCard.PrimingCardActivity
 import com.renderson.desafiopicpay.presentation.receipt.ReceiptFragment
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_payment.*
+import kotlinx.android.synthetic.main.activity_transaction.*
 
-open class PaymentActivity : PaymentBasic() {
+open class TransactionActivity : TransactionBasic() {
 
     private var list: List<CreditCard?>? = null
     private var cardNumberDao: String? = "-----------------"
@@ -31,12 +30,12 @@ open class PaymentActivity : PaymentBasic() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_payment)
+        setContentView(R.layout.activity_transaction)
 
         val viewModel = ViewModelProvider(viewModelStore,
             ViewModelFactory(ServiceApiDataSource(ApiService.serviceInterface))
         ).get(
-            ContactsViewModel::class.java)
+            TransactionViewModel::class.java)
 
         //this.getInfoCardDataBase()
 
@@ -63,7 +62,6 @@ open class PaymentActivity : PaymentBasic() {
     private fun setInfoCardNumber() {
         val cardNumberEdit = cardNumberDao!!.substring(cardNumberDao!!.length - 4)
         transaction_card.text = (resources.getString(R.string.txt_flag_card, cardNumberEdit))
-
     }
 
     private fun getInfoCardDataBase() {
@@ -85,7 +83,7 @@ open class PaymentActivity : PaymentBasic() {
         }
     }
 
-    private fun getInfoTransaction(viewModel: ContactsViewModel) {
+    private fun getInfoTransaction(viewModel: TransactionViewModel) {
         viewModel.transactionLiveData.observe(this, Observer {
             it.let { transaction ->
                 if (transaction.status == "Aprovada") {
@@ -96,19 +94,20 @@ open class PaymentActivity : PaymentBasic() {
                     fragment.arguments = bundle
                     fragment.show(supportFragmentManager, fragment.tag)
 
-                    //finish()
+                    transaction_value.setText(getString(R.string.txt_value))
+
                 } else {
-                    Toast.makeText(this, "Transação: ${transaction.status}", Toast.LENGTH_LONG)
-                        .show()
+                    viewModel.message.observe(this, Observer { message ->
+                        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+                    })
                 }
-                //return@Observer
             }
         })
     }
 
     private fun sendTransaction(
         user: User,
-        viewModel: ContactsViewModel
+        viewModel: TransactionViewModel
     ) {
         transaction_btn_payment.setOnClickListener {
             val valor: String = transaction_value.text.toString()
@@ -119,18 +118,18 @@ open class PaymentActivity : PaymentBasic() {
                 expiry_date = expiryDateDao.toString(),
                 destination_user_id = user.id
             )
-            viewModel.transactionEntryUser(transaction)
+            viewModel.transaction(transaction)
         }
     }
 
     private fun populateView(user: User) {
-        user.let { user ->
+        user.let {
             Picasso.get()
-                .load(user.img)
+                .load(it.img)
                 .placeholder(R.drawable.ic_account_default)
                 .into(payment_user_image)
 
-            payment_username.text = user.username
+            payment_username.text = it.username
         }
     }
 
@@ -164,7 +163,7 @@ open class PaymentActivity : PaymentBasic() {
         private const val USER_MODEL = "user_model"
 
         fun getStartIntent(context: Context, user: User): Intent {
-            return Intent(context, PaymentActivity::class.java).apply {
+            return Intent(context, TransactionActivity::class.java).apply {
                 putExtra(USER_MODEL, user)
             }
         }

@@ -15,7 +15,7 @@ import com.renderson.desafiopicpay.R
 import com.renderson.desafiopicpay.data.network.ApiService
 import com.renderson.desafiopicpay.data.network.repository.ServiceApiDataSource
 import com.renderson.desafiopicpay.presentation.ViewModelFactory
-import com.renderson.desafiopicpay.presentation.payment.PaymentActivity
+import com.renderson.desafiopicpay.presentation.payment.TransactionActivity
 import kotlinx.android.synthetic.main.activity_contact_main.*
 import kotlinx.android.synthetic.main.activity_search.*
 
@@ -53,7 +53,7 @@ class ContactActivity : AppCompatActivity() {
                     )
                     setHasFixedSize(true)
                     adapter = ContactAdapter(users) { user ->
-                        val intent = PaymentActivity.getStartIntent(this@ContactActivity, user)
+                        val intent = TransactionActivity.getStartIntent(this@ContactActivity, user)
                         this@ContactActivity.startActivity(intent)
                     }
                     searchListener(adapter as ContactAdapter)
