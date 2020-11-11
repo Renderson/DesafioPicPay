@@ -1,9 +1,10 @@
-package com.renderson.desafiopicpay.presentation.payment
+package com.renderson.desafiopicpay.presentation.transaction
 
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.renderson.desafiopicpay.R
+import com.renderson.desafiopicpay.data.database.entity.CardEntity
 import kotlinx.android.synthetic.main.activity_transaction.*
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -21,7 +22,7 @@ private var numberFormat: DecimalFormat? = null
 
 open class TransactionBasic : AppCompatActivity() {
 
-    fun transactionValuesListener(s: String) {
+    fun transactionValuesListener(s: String, cardEntity: List<CardEntity?>) {
         var text = s
         try {
             if (text != value) {
@@ -29,7 +30,7 @@ open class TransactionBasic : AppCompatActivity() {
                     .replace(".", "").replace(" ", "")
                     .replace(currencySymbol!!, "").trim { it <= ' ' }
                 value = format(text, false)
-                if (value != "0,00") setTransactionValue(
+                if (value != "0,00" && cardEntity.isNotEmpty()) setTransactionValue(
                     value!!,
                     ContextCompat.getColor(this, R.color.colorAccent),
                     true

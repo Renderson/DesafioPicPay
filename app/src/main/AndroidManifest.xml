@@ -20,10 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.payment.TransactionActivity"/>
-        <activity android:name=".presentation.payment.TransactionBasic" />
-        <activity android:name=".presentation.creditCard.PrimingCardActivity" />
-        <activity android:name=".presentation.creditCard.CardRegisterActivity" />
+        <activity android:name=".presentation.transaction.TransactionActivity"/>
+        <activity android:name=".presentation.transaction.TransactionBasic" />
+        <activity android:name=".presentation.creditCard.CreditCardHomeActivity" />
+        <activity android:name=".presentation.creditCard.CreditCardRegisterActivity" />
     </application>
 
 </manifest>

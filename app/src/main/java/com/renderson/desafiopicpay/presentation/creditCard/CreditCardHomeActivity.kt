@@ -4,13 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.renderson.desafiopicpay.R
-import com.renderson.desafiopicpay.data.model.CreditCard
+import kotlinx.android.synthetic.main.activity_priming_card.btn_sign_card
 import kotlinx.android.synthetic.main.activity_transaction.actionArrow
-import kotlinx.android.synthetic.main.activity_priming_card.*
 
-class PrimingCardActivity: AppCompatActivity() {
-
-    private var list: CreditCard? = null
+class CreditCardHomeActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +18,7 @@ class PrimingCardActivity: AppCompatActivity() {
         }
 
         btn_sign_card.setOnClickListener{
-            val intent = Intent(this, CardRegisterActivity::class.java)
+            val intent = Intent(this, CreditCardRegisterActivity::class.java)
             startActivity(intent)
             finish()
         }

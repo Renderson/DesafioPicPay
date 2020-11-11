@@ -25,4 +25,9 @@
     <string name="txt_register_card">Cadastrar cartão</string>
     <string name="txt_save">Salvar</string>
     <string name="txt_search">A quem você deseja pagar</string>
+    <string name="txt_transaction_approved">Aprovada</string>
+    <string name="txt_sign_credit_card">Cadastre um cartão de credito</string>
+    <string name="txt_error_api">Error API</string>
+    <string name="txt_untreated_error">Error não tratado</string>
+    <string name="txt_error_server">Error Server</string>
 </resources>

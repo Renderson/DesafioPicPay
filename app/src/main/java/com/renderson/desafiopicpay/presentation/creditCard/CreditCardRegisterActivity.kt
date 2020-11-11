@@ -3,18 +3,24 @@ package com.renderson.desafiopicpay.presentation.creditCard
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.renderson.desafiopicpay.R
-import com.renderson.desafiopicpay.data.database.DataBaseClient
-import com.renderson.desafiopicpay.data.model.CreditCard
-import kotlinx.android.synthetic.main.activity_card_register.*
+import com.renderson.desafiopicpay.presentation.ViewModelFactoryDB
+import kotlinx.android.synthetic.main.activity_card_register.register_btn_card
+import kotlinx.android.synthetic.main.activity_card_register.register_card_number
+import kotlinx.android.synthetic.main.activity_card_register.register_cvv
+import kotlinx.android.synthetic.main.activity_card_register.register_name
+import kotlinx.android.synthetic.main.activity_card_register.register_expiration_date
+import kotlinx.android.synthetic.main.activity_card_register.inputDate
 import kotlinx.android.synthetic.main.activity_transaction.actionArrow
-import java.util.*
+import java.util.Calendar
 
-class CardRegisterActivity : AppCompatActivity() {
+class CreditCardRegisterActivity : AppCompatActivity() {
+
+    private lateinit var viewModel: CreditCardRegisterViewModel
 
     private var validateCardNumber = false
     private var validateNameCard = false
@@ -33,28 +39,34 @@ class CardRegisterActivity : AppCompatActivity() {
             saveCreditCard()
         }
 
-        val list: List<CreditCard?>? =
-            DataBaseClient.getInstance(applicationContext)?.appDatabase?.creditCardDao()?.getAll()
+        viewModel = ViewModelProvider(
+            viewModelStore,
+            ViewModelFactoryDB(this)
+        ).get(
+            CreditCardRegisterViewModel::class.java
+        )
 
-        if (list != null) {
-            this.insertValues(list)
-        }
+        viewModel.getCreditCard()
+
+        this.insertValues()
         this.iniFields()
     }
 
-    private fun insertValues(list: List<CreditCard?>) {
-        list.map { items ->
-            register_card_number.setText(items!!.card_number)
-            register_name.setText(items.name)
-            register_expiration_date.setText(items.expiry_date)
-            register_cvv.setText(items.cvv)
+    private fun insertValues() {
+        viewModel.getCardEvent.observe(this, Observer {
+            it.map { items ->
+                register_card_number.setText(items!!.card_number)
+                register_name.setText(items.name)
+                register_expiration_date.setText(items.expiry_date)
+                register_cvv.setText(items.cvv)
 
-            validateCardNumber(items.card_number)
-            validateNameCard(items.name)
-            validateFieldDate(items.expiry_date)
-            validateCVV(items.cvv)
-            showButton()
-        }
+                validateCardNumber(items.card_number)
+                validateNameCard(items.name)
+                validateFieldDate(items.expiry_date)
+                validateCVV(items.cvv)
+                showButton()
+            }
+        })
     }
 
     private fun iniFields() {
@@ -146,7 +158,6 @@ class CardRegisterActivity : AppCompatActivity() {
             inputDate.error = null
             validateExpirationDate = true
             this.showButton()
-            Log.i("DATEEXP", validateExpirationDate.toString())
         }
     }
 
@@ -165,7 +176,6 @@ class CardRegisterActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        DataBaseClient.getInstance(this)?.destroyInstance()
         finish()
     }
 
@@ -184,30 +194,12 @@ class CardRegisterActivity : AppCompatActivity() {
         expiration: String,
         cvv: String
     ) {
-        val card = CreditCard(
-            card_number = cardNumber,
-            name = name,
-            expiry_date = expiration,
-            cvv = cvv
-        )
-        this.instanceDataBase(card)
-    }
-
-    private fun instanceDataBase(card: CreditCard) {
-        DataBaseClient.getInstance(applicationContext)?.appDatabase?.creditCardDao()?.delete()
-        DataBaseClient.getInstance(applicationContext)?.appDatabase?.creditCardDao()?.save(card)
-        DataBaseClient.getInstance(applicationContext)?.destroyInstance()
-        Toast.makeText(applicationContext, "Dados salvos", Toast.LENGTH_LONG).show()
+        viewModel.saveCreditCard(cardNumber, name, expiration, cvv)
         finish()
     }
 
     override fun onResume() {
         super.onResume()
         this.iniFields()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        DataBaseClient.getInstance(this)?.destroyInstance()
     }
 }

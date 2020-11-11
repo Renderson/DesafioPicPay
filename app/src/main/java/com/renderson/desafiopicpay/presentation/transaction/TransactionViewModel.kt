@@ -1,8 +1,9 @@
-package com.renderson.desafiopicpay.presentation.payment
+package com.renderson.desafiopicpay.presentation.transaction
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.renderson.desafiopicpay.R
 import com.renderson.desafiopicpay.data.model.Receipt
 import com.renderson.desafiopicpay.data.model.Transaction
 import com.renderson.desafiopicpay.data.network.ServiceCallBack
@@ -31,13 +32,13 @@ class TransactionViewModel(private val repository: Repository) : ViewModel() {
                             }
                             is ServiceCallBack.ApiError -> {
                                 if (result.statusCode == 401) {
-                                    _message.value = "Error API"
+                                    _message.value = R.string.txt_error_api.toString()
                                 } else {
-                                    _message.value = "Error não tratado"
+                                    _message.value = R.string.txt_untreated_error.toString()
                                 }
                             }
                             is ServiceCallBack.ServerError -> {
-                                _message.value = "Error Server"
+                                _message.value = R.string.txt_error_server.toString()
                             }
                         }
                     }

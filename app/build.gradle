@@ -45,8 +45,9 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.3.0-beta01'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.3.0-beta01'
 
-    //LiveCycle
-    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    // LiveCycle
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
 
     // Image Circle
     implementation 'de.hdodenhof:circleimageview:3.0.1'

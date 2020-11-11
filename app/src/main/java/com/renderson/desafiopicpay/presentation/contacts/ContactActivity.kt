@@ -15,9 +15,10 @@ import com.renderson.desafiopicpay.R
 import com.renderson.desafiopicpay.data.network.ApiService
 import com.renderson.desafiopicpay.data.network.repository.ServiceApiDataSource
 import com.renderson.desafiopicpay.presentation.ViewModelFactory
-import com.renderson.desafiopicpay.presentation.payment.TransactionActivity
-import kotlinx.android.synthetic.main.activity_contact_main.*
-import kotlinx.android.synthetic.main.activity_search.*
+import com.renderson.desafiopicpay.presentation.transaction.TransactionActivity
+import kotlinx.android.synthetic.main.activity_contact_main.textCollapsing
+import kotlinx.android.synthetic.main.activity_contact_main.recycler
+import kotlinx.android.synthetic.main.activity_search.search
 
 class ContactActivity : AppCompatActivity() {
 
@@ -30,9 +31,12 @@ class ContactActivity : AppCompatActivity() {
         textCollapsing.text = getString(R.string.txt_contacts)
         //progressBar.visibility = View.VISIBLE
 
-         viewModel = ViewModelProvider(viewModelStore,
-             ViewModelFactory(ServiceApiDataSource(ApiService.serviceInterface))).get(
-             ContactsViewModel::class.java)
+        viewModel = ViewModelProvider(
+            viewModelStore,
+            ViewModelFactory(ServiceApiDataSource(ApiService.serviceInterface))
+        ).get(
+            ContactsViewModel::class.java
+        )
 
         if (savedInstanceState == null) {
             viewModel.getUsers()
@@ -82,7 +86,6 @@ class ContactActivity : AppCompatActivity() {
             }
 
         })
-
         searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
             this.changeStylesSearch(searchView, hasFocus)
         }
@@ -96,8 +99,18 @@ class ContactActivity : AppCompatActivity() {
         val searchMagIcon: ImageView = search.findViewById(R.id.search_mag_icon)
 
         searchView.isSelected = hasFocus
-        searchCloseBtn.setColorFilter(ContextCompat.getColor(this@ContactActivity, R.color.color_white))
-        searchMagIcon.setColorFilter(ContextCompat.getColor(this@ContactActivity, R.color.color_white))
+        searchCloseBtn.setColorFilter(
+            ContextCompat.getColor(
+                this@ContactActivity,
+                R.color.color_white
+            )
+        )
+        searchMagIcon.setColorFilter(
+            ContextCompat.getColor(
+                this@ContactActivity,
+                R.color.color_white
+            )
+        )
         searchView.setBackgroundResource(R.drawable.shape_search_able)
 
         searchView.isIconified = !hasFocus
